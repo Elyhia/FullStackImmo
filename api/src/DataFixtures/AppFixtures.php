@@ -18,17 +18,9 @@ class AppFixtures extends Fixture
 
             while (!feof($csv)) {
                 $line = fgetcsv($csv);
-
                 /* TODO Import */
                 //$sale->setMachin($line[0]);
-
-
-                $manager->persist($coordinatesfrcity[$i]);
-
-                $this->addReference('coordinatesfrcity-'.$i, $coordinatesfrcity[$i]);
-
-
-                $i = $i + 1;
+                //$manager->persist();
             }
 
             fclose($csv);
