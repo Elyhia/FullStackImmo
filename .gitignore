@@ -2,10 +2,10 @@
 /helm/api-platform/charts/*
 !/helm/api-platform/charts/.gitignore
 /.idea
-api/src/Data/test.csv
-api/src/Data/valeurs-2018.csv
-api/src/Data/valeurs-2019.csv
-api/src/Data/valeursfoncieres-2018.txt
-api/src/Data/valeursfoncieres-2019.txt
-api/src/Data/valeursfoncieres-2020.txt
-api/src/Data/valeursfoncieres-2021.txt
+/api/src/Data/test.csv
+/api/src/Data/valeurs-2018.csv
+/api/src/Data/valeurs-2019.csv
+/api/src/Data/valeursfoncieres-2018.txt
+/api/src/Data/valeursfoncieres-2019.txt
+/api/src/Data/valeursfoncieres-2020.txt
+/api/src/Data/valeursfoncieres-2021.txt
