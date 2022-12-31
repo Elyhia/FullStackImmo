@@ -27,13 +27,15 @@ class AppFixtures extends Fixture
             $i = 0;
 
             // 0 : PRIX | 1 : ZIP | 2: AREA | 3 : Date | 4 TYPE
+
+            $cptline = 0;
+            $nbFlush = 0;
             while (!feof($csv)) {
 
                $sale = new Sale();
                $line = fgetcsv($csv,1024,";");
                if($line!=false)
                 {
-                    print_r($line);
                     /* TODO Import */
                     $sale->setPrice(floatval($line[0]));
                     $sale->setArea(floatval($line[2]));
@@ -62,13 +64,23 @@ class AppFixtures extends Fixture
                         $sale->setType("Appartement");
 
                     $manager->persist($sale);
+                    if($cptline==1000){
+                        $manager->flush();
+                        $manager->clear();
+                        $cptline=0;
+                        print("flush" . $nbFlush);
+                        $nbFlush++;
+                    }
+                    $cptline++;
                 }
             }
+
+            $manager->flush();
+            $manager->clear();
 
             fclose($csv);
 
 
-        $manager->flush();
     }
 
 }
