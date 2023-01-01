@@ -39,28 +39,21 @@ class SaleRepository extends ServiceEntityRepository
         }
     }
 
-//    /**
-//     * @return Sale[] Returns an array of Sale objects
-//     */
-//    public function findByExampleField($value): array
-//    {
-//        return $this->createQueryBuilder('s')
-//            ->andWhere('s.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->orderBy('s.id', 'ASC')
-//            ->setMaxResults(10)
-//            ->getQuery()
-//            ->getResult()
-//        ;
-//    }
+    public function findAllByYear(int $year, bool $includeUnavailableProducts = false): array
+    {
 
-//    public function findOneBySomeField($value): ?Sale
-//    {
-//        return $this->createQueryBuilder('s')
-//            ->andWhere('s.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->getQuery()
-//            ->getOneOrNullResult()
-//        ;
-//    }
+        $startDate = new \DateTimeImmutable("{$year}-12-30");
+        $endDate = new \DateTimeImmutable("{$year}-12-31");
+
+        $qb = $this->createQueryBuilder('sale')
+            ->where('sale.date BETWEEN :syear AND :eyear')
+            ->setParameter('syear', $startDate )
+            ->setParameter('eyear', $endDate )
+            ->orderBy('sale.date', 'ASC');
+
+        $query = $qb->getQuery();
+        return $query->execute();
+
+    }
 }
+

@@ -9,7 +9,6 @@ use ApiPlatform\Metadata\ApiResource;
 
 
 #[ORM\Entity(repositoryClass: SaleRepository::class)]
-#[ApiResource()]
 
 class Sale
 {

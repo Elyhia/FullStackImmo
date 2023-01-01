@@ -9,7 +9,6 @@ class AppFixtures extends Fixture
 {
     public function load(ObjectManager $manager):void
     {
-
             $arrayRegion= array();
             $csvregion = fopen( dirname(__DIR__) . "/Data/regions.csv",'r');
 
