@@ -11,7 +11,7 @@ def saveFile(annee):
 			f.close()
 
 
-annees = ("2018", "2019") #, "2020", "2021", "2022")
+annees = ("2020", "2021"); #, "2019") , "2020", "2021", "2022")
 
 for annee in annees:
 	saveFile(annee)

@@ -27,8 +27,10 @@ class CountByYearRegionSP implements ProviderInterface
             $total+=$line["c"];
 
         foreach ($sales as $key => $line){
-            $line["pc"] = round(100*$line["c"]/$total,2,PHP_ROUND_HALF_EVEN);
-            array_push($ret,$line);
+            $et = array();
+            $et["x"] = $line["region"];
+            $et["y"] = round(100*$line["c"]/$total,2,PHP_ROUND_HALF_EVEN);
+            array_push($ret,$et);
         }
         return $ret;
 

@@ -22,63 +22,67 @@ class AppFixtures extends Fixture
 
            fclose($csvregion);
 
-            $csv = fopen( dirname(__DIR__).'/Data/valeurs-2018.csv', 'r');
-            $i = 0;
+           $years = ["2018","2019","2020"];
+           foreach($years as $key => $year)
+           {
 
-            // 0 : PRIX | 1 : ZIP | 2: AREA | 3 : Date | 4 TYPE
+                $csv = fopen( dirname(__DIR__).'/Data/valeurs-'.$year.'.csv', 'r');
+                $i = 0;
 
-            $cptline = 0;
-            $nbFlush = 0;
-            while (!feof($csv)) {
+                // 0 : PRIX | 1 : ZIP | 2: AREA | 3 : Date | 4 TYPE
 
-               $sale = new Sale();
-               $line = fgetcsv($csv,1024,";");
-               if($line!=false)
-                {
-                    /* TODO Import */
-                    $sale->setPrice(floatval($line[0]));
-                    $sale->setArea(floatval($line[2]));
-                    $sale->setZipCode($line[1]);
-                    $dep = "";
+                $cptline = 0;
+                $nbFlush = 0;
+                while (!feof($csv)) {
 
-                    if(strlen($line[1])== 4)
+                   $sale = new Sale();
+                   $line = fgetcsv($csv,1024,";");
+                   if($line!=false)
                     {
-                        $dep = "0" . substr($line[1],0,1);
-                    }
-                    else
-                    {
-                        $dep = substr($line[1],0,2);
-                        if($dep=="97"){
-                            $dep=substr($line[1],0,3);
+                        /* TODO Import */
+                        $sale->setPrice(floatval($line[0]));
+                        $sale->setArea(floatval($line[2]));
+                        $sale->setZipCode($line[1]);
+                        $dep = "";
+
+                        if(strlen($line[1])== 4)
+                        {
+                            $dep = "0" . substr($line[1],0,1);
                         }
-                    }
-                    if($dep=="")
-                        continue;
-                    $sale->setRegion($arrayRegion[$dep]);
-                    $dateExp = explode("/",$line[3]);
-                    $sale->setDate(new \DateTime($dateExp[2]."-".$dateExp[1]."-".$dateExp[0]));
-                    if($line[4]==1)
-                        $sale->setType("Maison");
-                    else
-                        $sale->setType("Appartement");
+                        else
+                        {
+                            $dep = substr($line[1],0,2);
+                            if($dep=="97"){
+                                $dep=substr($line[1],0,3);
+                            }
+                        }
+                        if($dep=="")
+                            continue;
+                        $sale->setRegion($arrayRegion[$dep]);
+                        $dateExp = explode("/",$line[3]);
+                        $sale->setDate(new \DateTime($dateExp[2]."-".$dateExp[1]."-".$dateExp[0]));
+                        if($line[4]==1)
+                            $sale->setType("Maison");
+                        else
+                            $sale->setType("Appartement");
 
-                    $manager->persist($sale);
-                    if($cptline==1000){
-                        $manager->flush();
-                        $manager->clear();
-                        $cptline=0;
-                        print("flush" . $nbFlush);
-                        $nbFlush++;
+                        $manager->persist($sale);
+                        if($cptline==5000){
+                            $manager->flush();
+                            $manager->clear();
+                            $cptline=0;
+                            print("flush" . $nbFlush);
+                            $nbFlush++;
+                        }
+                        $cptline++;
                     }
-                    $cptline++;
                 }
-            }
 
-            $manager->flush();
-            $manager->clear();
+                $manager->flush();
+                $manager->clear();
 
-            fclose($csv);
-
+                fclose($csv);
+          }
 
     }
 
