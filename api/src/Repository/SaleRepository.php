@@ -82,6 +82,26 @@ class SaleRepository extends ServiceEntityRepository
 
     }
 
+    public function countByYearRegion(string $year, bool $includeUnavailableProducts = false): array
+    {
+
+
+        $startDate = new \DateTimeImmutable("{$year}-01-01");
+        $endDate = new \DateTimeImmutable("{$year}-12-31");
+
+        $qb = $this->createQueryBuilder('sale')
+            ->select('count(sale.id) as c,sale.region')
+            ->where('sale.date BETWEEN :syear AND :eyear')
+            ->setParameter('syear', $startDate )
+            ->setParameter('eyear', $endDate )
+            ->groupBy("sale.region");
+
+        $query = $qb->getQuery();
+        return $query->execute();
+
+    }
+
+
 
 }
 
