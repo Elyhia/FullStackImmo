@@ -18,22 +18,24 @@ class CountByMonthSP implements ProviderInterface
     public function provide(Operation $operation, array $uriVariables = [], array $context = []): object|array|null
     {
         $arEntity = array();
+        $sale = $this->saleRepository->countByMonth($uriVariables["from"],$uriVariables["to"]);
 
-        for($i=1;$i<=12;$i++)
+        $arMonth = array();
+
+        foreach($sale as $key => $line)
         {
-            $sale = $this->saleRepository->findAllByYearMonth($uriVariables["year"],$i);
+            $date = $line["date"]->format("Y-m") . "";
+            if(!isset($arMonth[$date]))
+                $arMonth[$date] =0;
 
+            $arMonth[$date] +=$line["c"];
+        }
+
+        foreach ($arMonth as $date => $count)
+        {
             $et = array();
-            $avp = 0;
-            $ava = 0;
-            foreach($sale as $key => $line){
-                $avp +=$line["avp"];
-                $ava +=$line["ava"];
-            }
-
-            $et["x"] = $uriVariables["year"]."-".$i;
-            $et["y"] = $avp/$ava;
-
+            $et["x"] = $date;
+            $et["y"] =$count;
             array_push($arEntity,$et);
         }
 

@@ -62,15 +62,15 @@ class SaleRepository extends ServiceEntityRepository
 
     }
 
-    public function countByMonth(int $from,int $to, bool $includeUnavailableProducts = false): array
+    public function countByMonth(string $from,string $to, bool $includeUnavailableProducts = false): array
     {
 
 
-        $startDate = new \DateTimeImmutable("{$year}-{$month}-01");
-        $endDate = new \DateTimeImmutable("{$year}-{$month}-31");
+        $startDate = new \DateTimeImmutable("{$from}-01");
+        $endDate = new \DateTimeImmutable("{$to}-31");
 
         $qb = $this->createQueryBuilder('sale')
-            ->select('AVG(sale.price) as avp,AVG(sale.area) ava,sale.date')
+            ->select('count(sale.id) as c,sale.date')
             ->where('sale.date BETWEEN :syear AND :eyear')
             ->setParameter('syear', $startDate )
             ->setParameter('eyear', $endDate )
