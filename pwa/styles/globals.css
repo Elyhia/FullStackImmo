@@ -1,0 +1,19 @@
+.titre{
+    padding:1%;
+    background-color:#d2d2d2;
+    padding-left:10%;
+}
+
+.corps{
+    margin-top: 10%;
+    margin-inline: 10%;
+}
+
+.graph{
+    padding:3%;
+    background-color:#eeeeee;
+}
+
+.titleGraph{
+    background-color:#d2d2d2;
+}
