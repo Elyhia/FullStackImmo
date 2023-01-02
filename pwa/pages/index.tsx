@@ -21,7 +21,7 @@ const Welcome = () => (
             <div className="navbar-nav">
               <a className="nav-item nav-link active" href="#graph1">Prix au mètre carré</a>
               <a className="nav-item nav-link active" href="#graph2">Ventes par année</a>
-              <a className="nav-item nav-link active" href="#">Ventes par région</a>
+              <a className="nav-item nav-link active" href="#graph3">Ventes par région</a>
             </div>
           </div>
         </nav>
@@ -45,6 +45,15 @@ const Welcome = () => (
         </div>
         <div className="card-body titleGraph">
           <h5 className="card-title">Ventes par années</h5>
+        </div>
+      </div>
+
+      <div id="graph3" className="card border-secondary mb-3">
+        <div className="card-img-top graph">
+          <SalesByRegion />
+        </div>
+        <div className="card-body titleGraph">
+          <h5 className="card-title">Ventes par région</h5>
         </div>
       </div>
 
