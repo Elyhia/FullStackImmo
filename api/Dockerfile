@@ -5,7 +5,6 @@
 FROM php:8.1-fpm-alpine AS app_php
 
 ENV APP_ENV=prod
-ENV MEMORY_LIMIT=16G
 
 WORKDIR /srv/app
 
@@ -50,6 +49,7 @@ RUN set -eux; \
 	apk add --no-cache --virtual .app-phpexts-rundeps $runDeps; \
 	\
 	apk del .build-deps
+
 
 ###> recipes ###
 ###> doctrine/doctrine-bundle ###
@@ -104,7 +104,6 @@ RUN set -eux; \
 # Dev image
 FROM app_php AS app_php_dev
 
-ENV MEMORY_LIMIT=16G
 ENV APP_ENV=dev XDEBUG_MODE=off
 VOLUME /srv/app/var/
 
@@ -113,6 +112,7 @@ RUN rm $PHP_INI_DIR/conf.d/app.prod.ini; \
 	mv "$PHP_INI_DIR/php.ini-development" "$PHP_INI_DIR/php.ini"
 
 COPY --link docker/php/conf.d/app.dev.ini $PHP_INI_DIR/conf.d/
+
 
 RUN set -eux; \
 	apk add --no-cache --virtual .build-deps $PHPIZE_DEPS; \

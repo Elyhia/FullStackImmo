@@ -2,6 +2,7 @@ import { FunctionComponent, useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import Head from "next/head";
+import React from 'react';
 
 import { fetch, getPath } from "../../utils/dataAccess";
 import { Sale } from "../../types/Sale";

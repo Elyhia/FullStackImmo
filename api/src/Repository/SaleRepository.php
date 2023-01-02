@@ -39,21 +39,49 @@ class SaleRepository extends ServiceEntityRepository
         }
     }
 
-    public function findAllByYear(int $year, bool $includeUnavailableProducts = false): array
+    public function findAllByYearMonth(int $year,int $month, bool $includeUnavailableProducts = false): array
     {
 
-        $startDate = new \DateTimeImmutable("{$year}-12-30");
-        $endDate = new \DateTimeImmutable("{$year}-12-31");
+        if($month<10)
+            $month = "0".$month;
+
+
+        $startDate = new \DateTimeImmutable("{$year}-{$month}-01");
+        $endDate = new \DateTimeImmutable("{$year}-{$month}-31");
 
         $qb = $this->createQueryBuilder('sale')
+            ->select('AVG(sale.price) as avp,AVG(sale.area) ava,sale.date')
             ->where('sale.date BETWEEN :syear AND :eyear')
             ->setParameter('syear', $startDate )
             ->setParameter('eyear', $endDate )
+            ->groupBy("sale.date")
             ->orderBy('sale.date', 'ASC');
 
         $query = $qb->getQuery();
         return $query->execute();
 
     }
+
+    public function countByMonth(int $from,int $to, bool $includeUnavailableProducts = false): array
+    {
+
+
+        $startDate = new \DateTimeImmutable("{$year}-{$month}-01");
+        $endDate = new \DateTimeImmutable("{$year}-{$month}-31");
+
+        $qb = $this->createQueryBuilder('sale')
+            ->select('AVG(sale.price) as avp,AVG(sale.area) ava,sale.date')
+            ->where('sale.date BETWEEN :syear AND :eyear')
+            ->setParameter('syear', $startDate )
+            ->setParameter('eyear', $endDate )
+            ->groupBy("sale.date")
+            ->orderBy('sale.date', 'ASC');
+
+        $query = $qb->getQuery();
+        return $query->execute();
+
+    }
+
+
 }
 

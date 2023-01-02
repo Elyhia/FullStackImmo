@@ -4,23 +4,23 @@ namespace App\Entity;
 
 use ApiPlatform\Metadata\ApiResource;
 use ApiPlatform\Metadata\GetCollection;
-use App\State\PriceAreaSP;
+use App\State\CountByMonthSP;
 
 
 #[ApiResource(
     operations: [
         new GetCollection(
-            uriTemplate: 'pricebyarea/{year}',
+            uriTemplate: 'countbymonth/{from}/{to}',
             description: "aa",
-            provider: PriceAreaSP::class
+            provider: CountByMonthSP::class
         )
     ],
     paginationEnabled: false,
-    provider: PriceAreaSP::class
+    provider: CountByMonthSP::class
 )]
 
 
-class PriceByArea
+class CountByMonth
 {
 
 }
