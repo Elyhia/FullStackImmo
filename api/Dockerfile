@@ -50,6 +50,7 @@ RUN set -eux; \
 	\
 	apk del .build-deps
 
+
 ###> recipes ###
 ###> doctrine/doctrine-bundle ###
 RUN apk add --no-cache --virtual .pgsql-deps postgresql-dev; \
@@ -111,6 +112,7 @@ RUN rm $PHP_INI_DIR/conf.d/app.prod.ini; \
 	mv "$PHP_INI_DIR/php.ini-development" "$PHP_INI_DIR/php.ini"
 
 COPY --link docker/php/conf.d/app.dev.ini $PHP_INI_DIR/conf.d/
+
 
 RUN set -eux; \
 	apk add --no-cache --virtual .build-deps $PHPIZE_DEPS; \

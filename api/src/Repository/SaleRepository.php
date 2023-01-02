@@ -39,28 +39,70 @@ class SaleRepository extends ServiceEntityRepository
         }
     }
 
-//    /**
-//     * @return Sale[] Returns an array of Sale objects
-//     */
-//    public function findByExampleField($value): array
-//    {
-//        return $this->createQueryBuilder('s')
-//            ->andWhere('s.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->orderBy('s.id', 'ASC')
-//            ->setMaxResults(10)
-//            ->getQuery()
-//            ->getResult()
-//        ;
-//    }
+    public function findAllByYearMonth(int $year,int $month, bool $includeUnavailableProducts = false): array
+    {
 
-//    public function findOneBySomeField($value): ?Sale
-//    {
-//        return $this->createQueryBuilder('s')
-//            ->andWhere('s.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->getQuery()
-//            ->getOneOrNullResult()
-//        ;
-//    }
+        if($month<10)
+            $month = "0".$month;
+
+
+        $startDate = new \DateTimeImmutable("{$year}-{$month}-01");
+        $endDate = new \DateTimeImmutable("{$year}-{$month}-31");
+
+        $qb = $this->createQueryBuilder('sale')
+            ->select('AVG(sale.price) as avp,AVG(sale.area) ava,sale.date')
+            ->where('sale.date BETWEEN :syear AND :eyear')
+            ->setParameter('syear', $startDate )
+            ->setParameter('eyear', $endDate )
+            ->groupBy("sale.date")
+            ->orderBy('sale.date', 'ASC');
+
+        $query = $qb->getQuery();
+        return $query->execute();
+
+    }
+
+    public function countByMonth(string $from,string $to, bool $includeUnavailableProducts = false): array
+    {
+
+
+        $startDate = new \DateTimeImmutable("{$from}-01");
+        $endDate = new \DateTimeImmutable("{$to}-31");
+
+        $qb = $this->createQueryBuilder('sale')
+            ->select('count(sale.id) as c,sale.date')
+            ->where('sale.date BETWEEN :syear AND :eyear')
+            ->setParameter('syear', $startDate )
+            ->setParameter('eyear', $endDate )
+            ->groupBy("sale.date")
+            ->orderBy('sale.date', 'ASC');
+
+        $query = $qb->getQuery();
+        return $query->execute();
+
+    }
+
+    public function countByYearRegion(string $year, bool $includeUnavailableProducts = false): array
+    {
+
+
+        $startDate = new \DateTimeImmutable("{$year}-01-01");
+        $endDate = new \DateTimeImmutable("{$year}-12-31");
+
+
+        $qb = $this->createQueryBuilder('sale')
+            ->select('count(sale.id) as c,sale.region')
+            ->where('sale.date BETWEEN :syear AND :eyear')
+            ->setParameter('syear', $startDate )
+            ->setParameter('eyear', $endDate )
+            ->groupBy("sale.region");
+
+        $query = $qb->getQuery();
+        return $query->execute();
+
+    }
+
+
+
 }
+
