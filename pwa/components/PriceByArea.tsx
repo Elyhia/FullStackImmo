@@ -7,11 +7,6 @@ export const PriceByArea: () => any = () => {
       label:'somethingA',
       values:[{x:'SomethingA',y:10},{x:'SomethingB',y:4},{x:'SomethingC',y:3}]}]);
 
-  function handleClick(e) {
-    setYear(e);
-    fetchData(year);
-  }
-
   useEffect(() => {
     async function getData(year){
 
@@ -26,15 +21,29 @@ export const PriceByArea: () => any = () => {
     }
 
     getData(year);
-  },[])
+  },[year])
+
+  function handleClick(e) {
+    console.log("Changement année");
+    setYear(e);
+  }
 
   return (
     <div>
       <div>
-        <button onClick={() => handleClick(2018)} value="2018">2018</button>
-        <button onClick={() => handleClick(2019)} value="2019">2019</button>
-        <button onClick={() => handleClick(2020)} value="2020">2020</button>
-        <button onClick={() => handleClick(2021)} value="2021">2021</button>
+        <div className="btn-group btn-group-toggle" data-toggle="buttons">
+          <label className="btn btn-secondary">
+            <input hidden type="radio" name="options" id="option1" onClick={() => handleClick(2018)} value="2018" />2018
+          </label>
+          <label className="btn btn-secondary">
+            <input hidden type="radio" name="options" id="option2" onClick={() => handleClick(2019)} value="2019" />2019
+          </label>
+          <label className="btn btn-secondary">
+            <input hidden type="radio" name="options" id="option3" onClick={() => handleClick(2020)} value="2020"/>2020
+          </label>
+        </div>
+
+
       </div>
 
       <LineChart
