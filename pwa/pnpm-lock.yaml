@@ -15,6 +15,7 @@ specifiers:
   isomorphic-unfetch: ^3.1.0
   next: ^12.3.3
   react: ^18.2.0
+  react-d3-components: ^0.9.1
   react-dom: ^18.2.0
   react-query: ^3.39.2
   typescript: ^4.8.4
@@ -27,6 +28,7 @@ dependencies:
   isomorphic-unfetch: 3.1.0
   next: 12.3.3_mqvh5p7ejg4taogoj6tpk3gd5a
   react: 18.2.0
+  react-d3-components: 0.9.1_biqbaboplfbrettd7655fr4n2y
   react-dom: 18.2.0_react@18.2.0
   react-query: 3.39.2_biqbaboplfbrettd7655fr4n2y
 
@@ -1222,6 +1224,13 @@ packages:
       yaml: 1.10.2
     dev: false
 
+  /create-react-class/15.7.0:
+    resolution: {integrity: sha512-QZv4sFWG9S5RUvkTYWbflxeZX+JG7Cz0Tn33rQBJ+WFQTqTfUTjMjiv9tnfXazjsO5r0KhPs+AqCjyrQX6h2ng==}
+    dependencies:
+      loose-envify: 1.4.0
+      object-assign: 4.1.1
+    dev: false
+
   /cross-spawn/7.0.3:
     resolution: {integrity: sha512-iRDPJKUPVEND7dHPO8rkbOnPpyDygcDFtWjpeWNCgy8WP2rXcxXL8TskReQl6OrB2G7+UJrags1q15Fudc7G6w==}
     engines: {node: '>= 8'}
@@ -1237,6 +1246,10 @@ packages:
 
   /csstype/3.1.1:
     resolution: {integrity: sha512-DJR/VvkAvSZW9bTouZue2sSxDwdTN92uHjqeKVm+0dAqdfNykRzQ95tay8aXMBAAPpUiq4Qcug2L7neoRh2Egw==}
+
+  /d3/3.5.17:
+    resolution: {integrity: sha512-yFk/2idb8OHPKkbAL8QaOaqENNoMhIaSHZerk3oQsECwkObkCpJyjYwCe+OHiq6UEdhe1m8ZGARRRO3ljFjlKg==}
+    dev: false
 
   /damerau-levenshtein/1.0.8:
     resolution: {integrity: sha512-sdQSFB7+llfUcQHUQO3+B8ERRj0Oa4w9POWMI/puGtuf7gFywGmkaLCElnudfTiKZV+NvHqL0ifzdrI8Ro7ESA==}
@@ -2702,6 +2715,19 @@ packages:
       - '@babel/core'
       - '@types/react'
       - react-native
+    dev: false
+
+  /react-d3-components/0.9.1_biqbaboplfbrettd7655fr4n2y:
+    resolution: {integrity: sha512-TfUmlheSGDsa/x0h8wJ8FcR2+0zYy+VIF9vRhOFnRavnjkiQHrDzdmiVYoS+6Kte70cLtkr/Tej9vvggzLaqeQ==}
+    peerDependencies:
+      react: ^0.14.0 || ^15.0.0 || ^16.0.0
+      react-dom: ^0.14.0 || ^15.0.0 || ^16.0.0
+    dependencies:
+      create-react-class: 15.7.0
+      d3: 3.5.17
+      prop-types: 15.8.1
+      react: 18.2.0
+      react-dom: 18.2.0_react@18.2.0
     dev: false
 
   /react-dom/18.2.0_react@18.2.0:
