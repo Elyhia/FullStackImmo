@@ -17,6 +17,22 @@ class CountByYearRegionSP implements ProviderInterface
 
     public function provide(Operation $operation, array $uriVariables = [], array $context = []): object|array|null
     {
-        return $this->saleRepository->countByYearRegion($uriVariables["year"]);
+
+
+        $sales = $this->saleRepository->countByYearRegion($uriVariables["year"]);
+        $total = 0;
+
+        $ret = array();
+        foreach ($sales as $key => $line)
+            $total+=$line["c"];
+
+        foreach ($sales as $key => $line){
+            $line["pc"] = round(100*$line["c"]/$total,2,PHP_ROUND_HALF_EVEN);
+            array_push($ret,$line);
+        }
+        return $ret;
+
+
+
     }
 }
